@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Stopwatch</string>
+    <string name="title_activity_main">Stopwatch</string>
+    <string name="package_name">com.doctor.kaif.stopwatch</string>
+    <string name="custom_url_scheme">com.doctor.kaif.stopwatch</string>
+</resources>
