@@ -1,0 +1,33 @@
+FROM node:20
+
+# Install Java 21 and dependencies
+RUN apt-get update && apt-get install -y openjdk-21-jdk wget unzip
+
+# Setup Android SDK
+ENV ANDROID_HOME=/root/android-sdk
+ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+
+RUN mkdir -p $ANDROID_HOME/cmdline-tools && \
+    cd /tmp && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdtools.zip && \
+    unzip -q cmdtools.zip && \
+    mv cmdline-tools $ANDROID_HOME/cmdline-tools/latest && \
+    yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 && \
+    $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+RUN npm run build && \
+    npx cap sync android
+
+WORKDIR /app/android
+RUN chmod +x ./gradlew
+RUN ./gradlew assembleDebug
+
+CMD ["ls", "-la", "app/build/outputs/apk/debug/"]
