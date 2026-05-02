@@ -1,13 +1,14 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --primary: #00c8ff;
-  --secondary: #0072ff;
   --accent: #ff4757;
-  --success: #2ed573;
-  --bg-dark: #0a0a1a;
+  --dark: #0a0a1a;
 }
 
 * {
@@ -16,24 +17,38 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg-dark);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--dark);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.bg-animated {
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Glass effect */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
@@ -42,16 +57,43 @@ body {
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.text-glow {
-  text-shadow: 0 0 40px rgba(0, 200, 255, 0.5), 0 0 80px rgba(0, 200, 255, 0.3);
+/* Glow effects */
+.glow-primary {
+  box-shadow: 
+    0 0 20px rgba(0, 200, 255, 0.3),
+    0 0 40px rgba(0, 200, 255, 0.2),
+    0 0 60px rgba(0, 200, 255, 0.1);
 }
 
+.glow-accent {
+  box-shadow: 
+    0 0 20px rgba(255, 71, 87, 0.3),
+    0 0 40px rgba(255, 71, 87, 0.2),
+    0 0 60px rgba(255, 71, 87, 0.1);
+}
+
+.text-glow {
+  text-shadow: 
+    0 0 40px rgba(0, 200, 255, 0.5),
+    0 0 80px rgba(0, 200, 255, 0.3),
+    0 0 120px rgba(0, 200, 255, 0.2);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary), #0072ff, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button glass effect */
 .btn-glass {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -60,14 +102,9 @@ body {
   transition: all 0.3s ease;
 }
 
-.btn-glass:hover {
+.btn-glass:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.2);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  box-shadow: 0 4px 20px rgba(0, 200, 255, 0.4);
 }
 
 .btn-glass:disabled {
@@ -75,21 +112,130 @@ body {
   cursor: not-allowed;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+/* Animations */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
-.rounded-3xl { border-radius: 1.5rem; }
-.rounded-2xl { border-radius: 1rem; }
-.tracking-tight { letter-spacing: -0.025em; }
-.tracking-wider { letter-spacing: 0.05em; }
-.tracking-\[0\.3em\] { letter-spacing: 0.3em; }
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Gradient border */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(var(--dark), var(--dark)) padding-box,
+              linear-gradient(135deg, var(--primary), var(--accent)) border-box;
+  border: 2px solid transparent;
+}
+
+/* Particle effect */
+.particle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Font classes */
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 200, 255, 0.3);
+  color: white;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Disable text selection on interactive elements */
+button, 
+[role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Better touch targets */
+@media (hover: none) {
+  button, 
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Safe area insets for mobile */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
