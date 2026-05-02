@@ -25,9 +25,6 @@ jobs:
       - name: Install Capacitor
         run: npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      - name: Initialize Capacitor
-        run: npx cap init "Stopwatch" "com.doctor.kaif.stopwatch" --web-dir=dist
-
       - name: Sync to Android
         run: npx cap sync android
 
