@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -27,205 +26,55 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Custom scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
+/* Custom scrollbar thin */
+.scrollbar-thin::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
+.scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
+.scrollbar-thin::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.25);
-}
-
-/* Glass effect */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glass-strong {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Glow effects */
-.glow-primary {
-  box-shadow: 
-    0 0 20px rgba(0, 200, 255, 0.3),
-    0 0 40px rgba(0, 200, 255, 0.2),
-    0 0 60px rgba(0, 200, 255, 0.1);
-}
-
-.glow-accent {
-  box-shadow: 
-    0 0 20px rgba(255, 71, 87, 0.3),
-    0 0 40px rgba(255, 71, 87, 0.2),
-    0 0 60px rgba(255, 71, 87, 0.1);
-}
-
-.text-glow {
-  text-shadow: 
-    0 0 40px rgba(0, 200, 255, 0.5),
-    0 0 80px rgba(0, 200, 255, 0.3),
-    0 0 120px rgba(0, 200, 255, 0.2);
-}
-
-/* Text gradient */
-.text-gradient {
-  background: linear-gradient(135deg, var(--primary), #0072ff, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Button glass effect */
-.btn-glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.btn-glass:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.btn-glass:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-/* Animations */
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
-}
-
-/* Gradient border */
-.gradient-border {
-  position: relative;
-  background: linear-gradient(var(--dark), var(--dark)) padding-box,
-              linear-gradient(135deg, var(--primary), var(--accent)) border-box;
-  border: 2px solid transparent;
-}
-
-/* Particle effect */
-.particle {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Responsive utilities */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }
 
 /* Font classes */
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
 .font-mono {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 }
 
-/* Selection color */
-::selection {
-  background: rgba(0, 200, 255, 0.3);
-  color: white;
+/* Text shadow glow */
+.text-glow {
+  text-shadow: 
+    0 0 20px rgba(0, 200, 255, 0.5),
+    0 0 40px rgba(0, 200, 255, 0.3),
+    0 0 60px rgba(0, 200, 255, 0.2);
 }
 
-/* Focus styles */
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+/* Button active states */
+button:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
-/* Disable text selection on interactive elements */
-button, 
-[role="button"] {
+/* Disable text selection on buttons */
+button {
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-}
-
-/* Better touch targets */
-@media (hover: none) {
-  button, 
-  [role="button"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Safe area insets for mobile */
-.safe-area-top {
-  padding-top: env(safe-area-inset-top);
-}
-
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Reduced motion */
@@ -236,6 +85,35 @@ button,
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  }
+}
+
+/* Safe area insets */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 200, 255, 0.3);
+  color: white;
+}
+
+/* Better touch targets on mobile */
+@media (hover: none) {
+  button, [role="button"] {
+    min-height: 48px;
+    min-width: 48px;
   }
 }
