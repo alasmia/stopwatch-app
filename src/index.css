@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --primary: #00c8ff;
-  --accent: #ff4757;
-  --dark: #0a0a1a;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -21,63 +19,100 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--dark);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #0a0a1a;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Custom scrollbar thin */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+/* Ultra smooth CSS animations - GPU accelerated */
+@keyframes slow-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
 }
 
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
+@keyframes slow-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 30px) scale(1.05); }
+  66% { transform: translate(20px, -20px) scale(1.1); }
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+.animate-slow-drift-1 {
+  animation: slow-drift-1 20s ease-in-out infinite;
 }
 
-/* Font classes */
-.font-display {
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
+.animate-slow-drift-2 {
+  animation: slow-drift-2 25s ease-in-out infinite;
 }
 
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Smooth transitions */
+button {
+  transition: all 0.15s ease-out;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Timer digits - no animation, pure state */
 .font-mono {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 }
 
-/* Text shadow glow */
-.text-glow {
-  text-shadow: 
-    0 0 20px rgba(0, 200, 255, 0.5),
-    0 0 40px rgba(0, 200, 255, 0.3),
-    0 0 60px rgba(0, 200, 255, 0.2);
+/* Scrollbar thin */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
 }
 
-/* Button active states */
-button:active:not(:disabled) {
-  transform: scale(0.97);
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* Disable text selection on buttons */
-button {
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
 }
 
-/* Reduced motion */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Better touch targets */
+@media (hover: none) {
+  button {
+    min-height: 48px;
+  }
+}
+
+/* Prevent any layout shift during load */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Hardware acceleration hint */
+.gpu {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -85,35 +120,5 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* Safe area insets */
-.safe-area-top {
-  padding-top: env(safe-area-inset-top);
-}
-
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Focus styles */
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* Selection color */
-::selection {
-  background: rgba(0, 200, 255, 0.3);
-  color: white;
-}
-
-/* Better touch targets on mobile */
-@media (hover: none) {
-  button, [role="button"] {
-    min-height: 48px;
-    min-width: 48px;
   }
 }
